@@ -3,11 +3,10 @@ import Time "mo:base/Time";
 import Float "mo:base/Float";
 
 actor Dbank {
- stable var currentValue: Float = 300; //stable make a flexible variable a persistent variable.(orthogonal)
+  stable var currentValue : Float = 300; //stable make a flexible variable a persistent variable.(orthogonal)
   // currentValue := 100; //***have comente here because it reset the stable var to 100
 
   let id = 1234567; //let is immutable
-  
 
   // Debug.print(debug_show(currentValue));
   // Debug.print(debug_show(id));
@@ -19,9 +18,10 @@ actor Dbank {
   // topUp();
 
   /***Time capture**/
-  
+
   stable var startTime = Time.now();
-  Debug.print(debug_show(startTime));
+  // startTime := Time.now();
+  Debug.print(debug_show (startTime));
 
   public func withdrawl(amount : Float) {
     let tempValue : Float = currentValue - amount;
@@ -36,13 +36,12 @@ actor Dbank {
     return currentValue;
   };
 
-  public func compound(){
+  public func compound() {
     let currentTime = Time.now();
     let timeElapsedNS = currentTime -startTime;
-    let timeElapsedS = timeElapsedNS/1000000000;
+    let timeElapsedS = timeElapsedNS / 1000000000;
     currentValue := currentValue * (1.01 ** Float.fromInt(timeElapsedS));
     startTime := currentTime;
 
-  }
+  };
 };
- 
